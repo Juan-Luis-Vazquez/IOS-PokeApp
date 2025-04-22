@@ -14,9 +14,7 @@ class PokemonListViewController: UIViewController, PokemonListViewProtocol {
     }
     
     private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PokemonCell")
+        tableView.register(UINib(nibName: "PokemonListTableViewCell", bundle: nil), forCellReuseIdentifier: "PokemonCell")
     }
     
     func showPokemons(_ pokemons: [Pokemon]) {
@@ -31,15 +29,19 @@ class PokemonListViewController: UIViewController, PokemonListViewProtocol {
     }
 }
 
+//MARK: UITableViewDelegate, UITableViewDataSource methods
 extension PokemonListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pokemons.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell", for: indexPath) as? PokemonListTableViewCell else {
+            //Handle Error
+            return UITableViewCell()
+        }
         let pokemon = pokemons[indexPath.row]
-        cell.textLabel?.text = pokemon.name.capitalized
+        cell.label?.text = pokemon.name.capitalized
         return cell
     }
     
