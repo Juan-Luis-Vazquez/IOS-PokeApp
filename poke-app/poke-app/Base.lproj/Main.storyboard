@@ -19,14 +19,18 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FNt-g4-BgI">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="9ik-rd-6u1"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xvw-qR-KJG"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="FNt-g4-BgI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="59" id="JUj-pT-BpL"/>
+                            <constraint firstItem="FNt-g4-BgI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="JUj-pT-BpL"/>
                             <constraint firstAttribute="bottom" secondItem="FNt-g4-BgI" secondAttribute="bottom" constant="34" id="Xrc-46-g7a"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FNt-g4-BgI" secondAttribute="trailing" id="dFf-3a-Wfk"/>
+                            <constraint firstAttribute="trailing" secondItem="FNt-g4-BgI" secondAttribute="trailing" id="dFf-3a-Wfk"/>
                             <constraint firstItem="FNt-g4-BgI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="y0D-Os-U5J"/>
                         </constraints>
                     </view>
@@ -36,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="-34"/>
+            <point key="canvasLocation" x="-447" y="-25"/>
         </scene>
     </scenes>
     <resources>
