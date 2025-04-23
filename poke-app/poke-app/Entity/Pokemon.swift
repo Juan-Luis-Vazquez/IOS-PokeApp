@@ -6,6 +6,8 @@ struct Pokemon: Codable {
     let height: Int
     let order: Int
     let sprites: Sprites
+    let image: String?
+    let description: String?
     let types: [PokemonType]
 }
 
