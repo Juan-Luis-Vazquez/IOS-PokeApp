@@ -42,20 +42,25 @@ extension PokemonListViewController: UITableViewDelegate, UITableViewDataSource 
             //Handle Error
             return UITableViewCell()
         }
-        let pokemon = pokemons[indexPath.row]
+        var pokemon = pokemons[indexPath.row]
         cell.pokemonName?.text = pokemon.name.capitalized
         cell.pokemonInfo?.text = pokemon.description ?? "No description"
         
-        if let urlString = pokemon.sprites.other.officialArtwork.frontDefault,
-           let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                guard let data = data, error == nil, let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    cell.imageView?.image = image
-                }
-            }.resume()
+        if(pokemon.image == nil){
+            if let urlString = pokemon.sprite,
+               let url = URL(string: urlString) {
+                URLSession.shared.dataTask(with: url) { data, _, error in
+                    guard let data = data, error == nil, let image = UIImage(data: data) else { return }
+                    DispatchQueue.main.async {
+                        pokemon.image = image
+                        cell.pokemonImage?.image = pokemon.image
+                    }
+                }.resume()
+            } else {
+                cell.pokemonImage?.image = nil
+            }
         } else {
-            cell.imageView?.image = nil
+            cell.pokemonImage?.image = pokemon.image
         }
         return cell
     }
@@ -63,5 +68,10 @@ extension PokemonListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let pokemon = pokemons[indexPath.row]
         presenter?.didSelectPokemon(pokemon)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //Index path refers to cell
+        return 180
     }
 }
