@@ -35,13 +35,28 @@ extension PokemonListViewController: UITableViewDelegate, UITableViewDataSource 
         return pokemons.count
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell", for: indexPath) as? PokemonListTableViewCell else {
             //Handle Error
             return UITableViewCell()
         }
         let pokemon = pokemons[indexPath.row]
-        cell.label?.text = pokemon.name.capitalized
+        cell.pokemonName?.text = pokemon.name.capitalized
+        cell.pokemonInfo?.text = pokemon.description ?? "No description"
+        
+        if let urlString = pokemon.sprites.other.officialArtwork.frontDefault,
+           let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { data, _, error in
+                guard let data = data, error == nil, let image = UIImage(data: data) else { return }
+                DispatchQueue.main.async {
+                    cell.imageView?.image = image
+                }
+            }.resume()
+        } else {
+            cell.imageView?.image = nil
+        }
         return cell
     }
     
